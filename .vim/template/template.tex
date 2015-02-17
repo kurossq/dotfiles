@@ -1,0 +1,170 @@
+\documentclass[12pt,a4j]{jsarticle}%jsarticle.cls，文字12pt,A4
+\usepackage[dvipdfmx]{graphicx} %グラフィック用
+\usepackage{amsmath,amssymb}%math package
+\usepackage{float} %画像表示位置制御
+\usepackage{url} %URL表示用
+\usepackage{ascmac} %複数行を枠囲み
+\usepackage{fancybox} %文章の一部を枠囲み
+\usepackage{ulem} %打ち消し線や下線を引く
+\usepackage{color}
+%\usepackage{listings,jlisting} %プログラムのソースコード貼付け用
+%\usepackage{udline} %ulem.styの代わりに入れたけど，エラー多発
+
+% PDFが文字化けしないようにする設定
+\usepackage{atbegshi}
+\AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
+% よく使うものを定義
+\usepackage{amsthm} %定理型環境パッケージ
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}{定義}[section]
+\newtheorem{proposition}{命題}[section]
+\newtheorem{lemma}{補題}[section]
+\newtheorem{corollary}{系}[section]
+\newtheorem{conjecture}{予想}[section]
+\newtheorem*{remark}{Remark}
+\renewcommand\proofname{\bf 証明}
+% ブラケット記号パッケージ：集合記号が便利，量子以外でも有用
+\usepackage{braket}
+
+\setlength{\textheight}{\paperheight} %紙面縦幅を本文領域にする
+\setlength{\textwidth}{\paperwidth} %紙面横幅を本文領域にする
+\setlength{\evensidemargin}{-5truemm} %左の余白を(=25.4-5)mmに
+\setlength{\oddsidemargin}{-5truemm} %左の余白を(=25.4-5)mmに
+\addtolength{\textwidth}{-40truemm} %右の余白を(=25.4-5)mmに
+\setlength{\topmargin}{-10truemm} %上の余白を10mm
+\addtolength{\topmargin}{-\headheight} %ヘッダの分,本文領域を移動
+\addtolength{\topmargin}{-\headsep}%ヘッダの分,本文領域を移動
+\addtolength{\textheight}{-30truemm} %下の余白も30mm
+
+% よく使いそうなもの
+% スクリプトスタイルの記号（Coverでは集合記号）
+\def\X{\mathcal{X}}
+\def\Y{\mathcal{Y}}
+\def\Z{\mathcal{Z}}
+\def\P{\mathcal{P}}
+
+\def\({\left(}
+\def\){\right)}
+
+% 実数と複素数
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+
+% epsilon, phi を筆記体にする
+%\def\epsilon{\varepsilon}
+%\def\phi{\varphi}
+
+% 定義（イコール）
+\def\Def{:=}
+%\def\Def{\stackrel{\textrm{def}}{=}}
+% 定義（同値）
+\def\DEF{\stackrel{\textrm{def}}\Longleftrightarrow}
+
+% argmax, argmin
+\def\argmin{arg\,min}
+\def\argmax{arg\,max}
+
+% 英語の省略記法
+\def\iid{i.i.d.~}
+\def\etal{{\em et al.}~}
+\def\etc{etc.~}
+\def\resp{resp.~}
+\def\wrt{w.r.t.~}
+
+% \nn = \newline + \nonumber
+\newcommand{\nn}{\nonumber \\}
+% \dm{...}でディスプレイスタイルにする
+\def\dm#1{\(\displaystyle #1 \)}
+% \begin{textmath} ... \end{textmath} でディスプレイスタイルにする
+\newenvironment{textmath}{\(\displaystyle}{\)}
+
+\makeatletter
+\renewenvironment{proof}[1][証明：]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep\indent\bfseries #1 ]
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+
+\newcommand{\E}{{\mathrm{E}}}
+\newcommand{\IN}{{\mathrm{I}_n}}
+\newcommand{\V}{{\mathrm{Var}}}
+\newcommand{\cov}{{\mathrm{Cov}}}
+\newcommand{\n}[1]{\text{\textnormal{#1}}}
+
+\renewcommand{\theequation}{%
+   \thesection.\arabic{equation}}
+  \@addtoreset{equation}{section}
+
+\renewcommand{\proofname}{\bfseries 証明}
+\makeatother
+
+\makeatletter
+
+%\def\@thesis{修 士 論 文}
+\def\id#1{\def\@id{#1}}
+\def\department#1{\def\@department{#1}}
+
+\def\@maketitle{
+\begin{center}
+%{\huge \@thesis \par} %修士論文と記載される部分
+\vspace{10mm}
+{\huge\bf \@title \par}% 論文のタイトル部分
+\vspace{10mm}
+{\large \@department \par} % 所属部分
+\vspace{3mm}
+%{\Large 学籍番号  \@id \par} % 学籍番号部分
+{\Large \@id \hspace{10mm}} % 学籍番号部分
+%\vspace{5mm}
+{\Large \@author \par}% 氏名
+\vspace{5mm}
+{\Large \@date \par} % 提出年月日部分
+\end{center}
+\par\vskip 1.5em
+}
+\makeatother
+
+\def\lstlistingname{ソースコード}
+\def\lstlistlistingname{ソースコード目次}
+%\renewcommand{\lstlistingname}{リスト}
+\usepackage{listings,jlisting}
+
+\lstset{language=c,
+  basicstyle=\ttfamily\scriptsize,
+  commentstyle=\textit,
+  classoffset=1,
+  keywordstyle=\bfseries,
+  frame=tRBl,
+  framesep=5pt,
+  showstringspaces=false,
+  numbers=left,
+  stepnumber=1,
+  numberstyle=\tiny,
+  tabsize=2
+}
+
+\begin{document}
+\title{}
+\date{\today}
+\department{電気通信大学 情報システム学研究科 \\ 長岡・小川研究室}
+\id{1452003}
+\author{江上伊吹}
+\maketitle
+\newpage
+\setcounter{part}{0}%第1部から
+\setcounter{section}{0}%節番号を1節から
+\setcounter{subsection}{0}%sub節番号を.1節から
+\setcounter{equation}{0}%式番号を1から
+\section{} \label{sec:1}
+
+
+
+
+
+
+
+
+\end{document}
