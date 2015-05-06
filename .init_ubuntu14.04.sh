@@ -35,7 +35,8 @@ sudo apt-get install vim-gnome
 
 sudo apt-get update
 # vimの設定ファイルを引っ張ってくる
-ln -s /home/ibuki/Dropbox/dotfiles/.vim .vim
-ln -s /home/ibuki/Dropbox/dotfiles/.vimrc .vimrc
-ln -s /home/ibuki/Dropbox/dotfiles/.gvimrc .gvimrc
-ln -s /home/ibuki/Dropbox/dotfiles/.latexmkrc .latexmkrc
+git clone git@github.com:Ibuki-E/dotfiles.git
+ln -s ~/dotfiles/.vimrc ~/.vimrc
+ln -s ~/dotfiles/.gvimrc ~/.gvimrc
+ln -s ~/dotfiles/.vim ~/.vim
+ln -s ~/dotfiles/.latexmkrc ~/.latexmkrc
