@@ -1,17 +1,14 @@
 #!/usr/bin/env python
-
+# coding: utf-8
+# preamble {{{
 # Information {{{
-    """
-     vim: set fileencoding=utf-8 :
-
-     Author:     Ibuki Egami
-     Last Update:
-     Created:    <+DATE+>
-    """
+#     Author:     Ibuki-E
+#     Last Update:
+#     Created:    <+DATE+>
 #     }}}
 # Argument {{{
-    """
-
-    """
+#
 #     }}}
 
+# }}}
+<+CURSOR+>

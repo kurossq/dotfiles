@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
+# preamble{{{
 
 # Information {{{
 =begin
- vim: set fileencoding=utf-8 :
-
- Author:     Ibuki Egami
+ Author:     Ibuki-E
  Last Update:
  Created:    <+DATE+>
 =end
@@ -15,5 +14,5 @@
 
 =end
 # }}}
-
-
+# }}}
+<+CURSOR+>

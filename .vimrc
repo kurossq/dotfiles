@@ -214,7 +214,7 @@ set shortmess+=I
 "マクロ実行中などの画面再描画を行わない
 "set lazyredraw
 "タブを設定
-set ts=4 sw=4 sts=4
+set tabstop=2 shiftwidth=2 softtabstop=2
 "Tab、行末の半角スペースを明示的に表示する
 set list
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
@@ -222,8 +222,16 @@ set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
 "set nolist
 "set listchars=tab:^\ ,trail:
 " Two-byte space
+highlight TwoByteSpace cterm=underline ctermfg=red guibg=red
 autocmd ColorScheme * hi link TwoByteSpace Error
 autocmd VimEnter,WinEnter * let w:m_tbs = matchadd("TwoByteSpace", '　')
+"highlight JpSpace cterm=underline ctermfg=red guifg=Blue
+"au BufRead,BufNew,VimEnter,WinEnter * match JpSpace /　/
+"augroup highlightIdegraphicSpace
+"  autocmd!
+"  autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=red guibg=red
+"  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+"augroup END
 
 set modeline
 set modelines=3
@@ -236,15 +244,13 @@ set foldlevel=0
 set number
 "(){}の対応表示"
 set showmatch
-"□や○の文字があってもカーソル位置がずれないようにす 
+"□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
 
 "自動インデント"
 set autoindent
 set smartindent
 set cindent
-"autoindentの時のインデント文字数"
-set shiftwidth=4
 "----------------------------------------}}}
 "quickrun_config {{{
 "----------------------------------------
@@ -346,21 +352,22 @@ map <C-P> :bprevious<CR>
 " バッファ削除
 "map <C-P> :bw<CR>
 map <C-T> :VimFiler ~/<CR>
-cmap <C-f> <Right>
-cmap <C-b> <Left>
-cmap <C-a> <Home>
-cmap <C-e> <End>
-cmap <C-d> <Del>
-cmap <C-h> <BackSpace>
-cmap <C-g> <Esc>
-cmap <C-n> <Down>
-cmap <C-p> <Up>
+" cmap <C-f> <Right>
+" cmap <C-b> <Left>
+" cmap <C-a> <Home>
+" cmap <C-e> <End>
+" cmap <C-d> <Del>
+" cmap <C-h> <BackSpace>
+" cmap <C-g> <Esc>
+" cmap <C-n> <Down>
+" cmap <C-p> <Up>
+nmap <Leader>q :QuickRun<CR>
 
 " 強制保存終了を無効化
 nnoremap ZZ zz
 "<C-e>で拡張子で判断してスクリプト実行
-autocmd BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby %
-autocmd BufNewFile,BufRead *.py nnoremap <C-e> :!python %
+autocmd BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
+autocmd BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
 
 
 "---------------------------------------}}}
@@ -514,9 +521,21 @@ autocmd MyAutoCmd User plugin-template-loaded
 "----------------------------------------}}}
 " vim-latex {{{
 "----------------------------------------
+" 自動コンパイル
 let g:latex_latexmk_continuous = 1
 let g:latex_latexmk_background = 1
+" コンパイル終了後のエラー通知オフ
+"let g:latex_latexmk_callback = 0
 let g:latex_latexmk_options = '-pdfdvi'
+"let g:latex_fold_enabled = 1
+"let g:latex_fold_automatic = 1
+" コンパイル後にWarningを無視する
+let g:vimtex_quickfix_ignore_all_warnings = 1
+"let g:vimtex_quickfix_ignored_warnings = [
+"			\ 'Underfull',
+"			\ 'Overfull',
+"			\ 'specifier changed to',
+"			\ ]
 
 if s:is_windows
 	let g:latex_view_method = 'sumatrapdf'
@@ -538,17 +557,22 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
+			\ "\<Plug>(neosnippet_expand_or_jump)"
+			\: pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+			\ "\<Plug>(neosnippet_expand_or_jump)"
+			\: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+	set conceallevel=2 concealcursor=i
 endif
 "----------------------------------------}}}
+" autocmd {{{
+"----------------------------------------
+autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType ruby setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
+"----------------------------------------}}}
 
 call neobundle#end()

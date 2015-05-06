@@ -14,7 +14,7 @@ set termencoding=japan
 set guioptions-=T
 
 " 縦幅
-set lines=76
+set lines=35
 " 横幅
 set columns=80
 " 色テーマ
@@ -23,8 +23,8 @@ colorscheme morning
 " クリップボード共有
 "set clipboard=unnamed
 "フォント設定
-set gfn=IPAゴシック\ 12
-"set gfn=Ricty\ 20
+"set gfn=IPAゴシック\ 12
+set gfn=Ricty\ 13
 "印刷用フォント
 "set printfont=Monospace\ 12
 set printfont=IPAゴシック\ 12
