@@ -126,6 +126,10 @@ NeoBundle 'thinca/vim-template'
 "NeoBundle 'Yggdroot/indentLine'
 "テキストを囲う
 NeoBundle 'tpope/vim-surround'
+" markdownを使うため
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'kannokanno/previm'
+NeoBundle 'tyru/open-browser.vim'
 
 "インストールしていないプラグインがあったら警告"
 NeoBundleCheck
@@ -572,6 +576,7 @@ endif
 "----------------------------------------
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType ruby setlocal tabstop=4 shiftwidth=4 softtabstop=4
+au BufRead,BufNewFile *.md set filetype=markdown
 
 "----------------------------------------}}}
 
