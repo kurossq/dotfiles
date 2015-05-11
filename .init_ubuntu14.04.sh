@@ -60,6 +60,7 @@ sudo apt-get install vim-gnome
 #sudo apt-get install fonts-inconsolata
 
 sudo apt-get update
+# http://rrreeeyyy.com/blog/2013/12/13/uecwutn/ を参考にしました
 # uecのproxyを通してgithubを使うための設定
 # githubを使いたい人は以下のコメントを実行してください
 #git config --global http.proxy http://proxy.uec.ac.jp:8080
