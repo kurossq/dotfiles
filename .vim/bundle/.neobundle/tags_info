@@ -3,6 +3,8 @@ neobundle.vim
 neocomplcache
 neosnippet-snippets
 neosnippet.vim
+open-browser.vim
+previm
 quickrunex-vim
 tcomment_vim
 unite-outline
@@ -10,6 +12,7 @@ unite.vim
 vim-gdev
 vim-grammarous
 vim-latex
+vim-markdown
 vim-quickrun
 vim-rails
 vim-surround
