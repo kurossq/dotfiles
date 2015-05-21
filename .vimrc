@@ -168,7 +168,9 @@ set virtualedit=block
 set wildmenu
 
 "tabでタブ文字を入力
-set noexpandtab
+"set noexpandtab
+"tabで空白文字を入力
+set expandtab
 "長い行を折り返し表示
 set wrap
 " 最下ウィンドウにいつステータス行が表示されるかを設定する
@@ -574,8 +576,22 @@ endif
 "----------------------------------------}}}
 " autocmd {{{
 "----------------------------------------
-autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType ruby setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType c          setlocal sw=2 sts=2 ts=2 et
+autocmd FileType cpp        setlocal sw=2 sts=2 ts=2 et
+autocmd FileType css        setlocal sw=2 sts=2 ts=2 et
+autocmd FileType eruby      setlocal sw=2 sts=2 ts=2 et
+autocmd FileType html       setlocal sw=2 sts=2 ts=2 et
+autocmd FileType java       setlocal sw=4 sts=4 ts=4 et
+autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+autocmd FileType perl       setlocal sw=4 sts=4 ts=4 et
+autocmd FileType php        setlocal sw=2 sts=2 ts=2 et
+autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
+autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
+autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et
+autocmd FileType sql        setlocal sw=2 sts=2 ts=2 et
+autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
+autocmd FileType yaml       setlocal sw=2 sts=2 ts=2 et
+autocmd FileType xml        setlocal sw=2 sts=2 ts=2 et
 au BufRead,BufNewFile *.md set filetype=markdown
 
 "----------------------------------------}}}
