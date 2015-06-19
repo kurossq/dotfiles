@@ -29,6 +29,7 @@ sudo add-apt-repository ppa:webupd8team/java
 # gccに代わるエラーが綺麗に表示されるコンパイラ
 sudo apt-get install clang
 # ubuntu設定用
+sudo apt-get install alacarte
 sudo apt-get install compizconfig-settings-manager
 sudo apt-get install dconf-editor
 # 
