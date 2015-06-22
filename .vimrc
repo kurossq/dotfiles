@@ -369,6 +369,10 @@ map <C-T> :VimFiler ~/<CR>
 " cmap <C-p> <Up>
 nmap <Leader>q :QuickRun<CR>
 
+inoremap ( ()<LEFT>
+inoremap [ []<Left>
+inoremap " ""<LEFT>
+inoremap ' ''<LEFT>
 " 強制保存終了を無効化
 nnoremap ZZ zz
 "<C-e>で拡張子で判断してスクリプト実行
