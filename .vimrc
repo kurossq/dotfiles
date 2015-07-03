@@ -380,6 +380,7 @@ nnoremap ZZ zz
 "<C-e>で拡張子で判断してスクリプト実行
 autocmd BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
 autocmd BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
+autocmd BufNewFile,BufRead *.vim nnoremap <C-e> :source % <CR>
 
 
 "---------------------------------------}}}
