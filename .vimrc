@@ -130,6 +130,8 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'tyru/open-browser.vim'
+"help を日本語"
+NeoBundle 'vim-jp/vimdoc-ja'
 
 "インストールしていないプラグインがあったら警告"
 NeoBundleCheck
