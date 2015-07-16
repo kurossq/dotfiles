@@ -397,7 +397,7 @@ nnoremap ZZ zz
 "<C-e>で拡張子で判断してスクリプト実行
 au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
 au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
-au BufNewFile,BufRead *tex nnoremap <C-e> :QuickRun<CR>
+au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun<CR>
 
 
 "---------------------------------------}}}
