@@ -303,6 +303,25 @@ let g:quickrun_config = {
 			\	"c/gcc" : {
 			\		"cmdopt" : "-lm"
 			\   },
+      \ "tex" : {
+      \   "command" : "latexmk",
+      \   'outputter' : 'error',
+      \   'outputter/error/success' : 'null',
+      \   'outputter/error/error' : 'quickfix',
+      \   'srcfile' : expand("%"),
+      \   'cmdopt': '-pdfdvi -pv',
+      \   'hook/sweep/files' : [
+      \                        '%S:p:r.aux',
+      \                        '%S:p:r.bbl',
+      \                        '%S:p:r.blg',
+      \                        '%S:p:r.dvi',
+      \                        '%S:p:r.fdb_latexmk',
+      \                        '%S:p:r.fls',
+      \                        '%S:p:r.log',
+      \                        '%S:p:r.out'
+      \                        ],
+      \   'exec': '%c %o %a %s',
+      \}
 			\ }
 
 " <C-c> で実行を強制終了させる
@@ -367,8 +386,8 @@ map <C-T> :VimFiler ~/<CR>
 " cmap <C-g> <Esc>
 " cmap <C-n> <Down>
 " cmap <C-p> <Up>
-nmap <Leader>q :QuickRun<CR>
-
+"nmap <Leader>q :QuickRun<CR>
+nmap <C-e> :QuickRun<CR>
 inoremap ( ()<LEFT>
 inoremap [ []<Left>
 inoremap " ""<LEFT>
@@ -376,8 +395,9 @@ inoremap ' ''<LEFT>
 " 強制保存終了を無効化
 nnoremap ZZ zz
 "<C-e>で拡張子で判断してスクリプト実行
-autocmd BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
-autocmd BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
+au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
+au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
+au BufNewFile,BufRead *tex nnoremap <C-e> :QuickRun<CR>
 
 
 "---------------------------------------}}}
@@ -534,6 +554,10 @@ autocmd MyAutoCmd User plugin-template-loaded
 " 自動コンパイル
 let g:latex_latexmk_continuous = 1
 let g:latex_latexmk_background = 1
+" 折りたたみの無効化"
+let g:vimtex_fold_envs = 0
+" 数式表示の無効化"
+let g:tex_conceal=''
 " コンパイル終了後のエラー通知オフ
 "let g:latex_latexmk_callback = 0
 let g:latex_latexmk_options = '-pdfdvi'
@@ -597,6 +621,8 @@ autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
 autocmd FileType yaml       setlocal sw=2 sts=2 ts=2 et
 autocmd FileType xml        setlocal sw=2 sts=2 ts=2 et
 au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.tex set filetype=tex
+au BufWritePost,FileWritePost *.tex QuickRun tex
 
 "----------------------------------------}}}
 
