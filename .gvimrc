@@ -18,8 +18,13 @@ set lines=35
 " 横幅
 set columns=80
 " 色テーマ
+syntax on
+set background=dark
 "colorscheme default
-colorscheme morning
+"colorscheme morning
+"colorscheme hybrid
+"colorscheme solarized
+colorscheme lucius
 " クリップボード共有
 "set clipboard=unnamed
 "フォント設定

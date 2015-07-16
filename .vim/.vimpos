@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-winpos  49  25
-set lines=25 columns=82
-=======
-winpos  0  24
-set lines=47 columns=94
->>>>>>> a7d61fec747c1d83e3c1d11cac598a8fa0454a36
+winpos  49  24
+set lines=22 columns=82

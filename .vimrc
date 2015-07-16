@@ -68,12 +68,14 @@ endif
 
 "neobundle自身をneobundleで管理"
 NeoBundleFetch 'Shougo/neobundle.vim'
+
 "コードをとりあえず実行できる 偉い"
 NeoBundle 'thinca/vim-quickrun', {
             \ 'depends' : 'mattn/quickrunex-vim',
             \ }
 
 "NeoBundle 'Shougo/neobundle.vim'
+
 "非同期処理"
 NeoBundle 'Shougo/vimproc', {
 			\ 'build' : {
@@ -83,57 +85,86 @@ NeoBundle 'Shougo/vimproc', {
 			\ 'unix' : 'make -f make_unix.mak',
 			\ },
 			\ }
+
 "vimでshellが使えるよ"
 NeoBundle 'Shougo/vimshell'
+
 "統合UI データ操作が簡単にできるらしい"
 NeoBundle 'Shougo/unite.vim'
+
 "ソースファイルからアウトラインを作成"
 NeoBundle 'Shougo/unite-outline'
+
 "vimで起動できるファイラー"
 NeoBundle 'Shougo/vimfiler'
+
 "vimで補完してくれるやつ"
 NeoBundle 'Shougo/neocomplcache'
+
 "スニペット補完"
 NeoBundle 'Shougo/neosnippet.vim'
+
 "各種スニペット"
 NeoBundle 'Shougo/neosnippet-snippets'
+
 "整形ツール"
 NeoBundle 'Align'
+
 "vim-latex
 "NeoBundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 "NeoBundle 'vim-latex/vim-latex'
 NeoBundle 'lervag/vim-latex'
+
 "自然言語文法チェック
 NeoBundle 'rhysd/vim-grammarous'
+
 "gauche用
 "vimでgaucheを使うためとコマンドラインみたいに扱うもの
 NeoBundle 'aharisu/vim_goshrepl'
 NeoBundle 'aharisu/vim-gdev'
+
 "ruby用
 " Rails向けのコマンドを提供する
 NeoBundle 'tpope/vim-rails'
+
 " Ruby向けにendを自動挿入してくれる
 "NeoBundle 'tpope/vim-endwise'
+
 " コメントON/OFFを手軽に実行
 NeoBundle 'tomtom/tcomment_vim'
+
 " インデントに色を付けて見やすくする
 "NeoBundle 'nathanaelkane/vim-indent-guides'
+
 " ファイルをtree表示してくれる
 "NeoBundle 'scrooloose/nerdtree'
+
 " ファイル作成時にテンプレート挿入
 NeoBundle 'thinca/vim-template'
+
 "インデントをわかりやすく表示
 "NeoBundle 'Yggdroot/indentLine'
+
 "テキストを囲う
 NeoBundle 'tpope/vim-surround'
+
 " markdownを使うため
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'tyru/open-browser.vim'
 
+" colorscheme"
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'jpo/vim-railscasts-theme'
+NeoBundle 'vim-scripts/twilight'
+NeoBundle 'jonathanfilip/vim-lucius'
+NeoBundle 'altercation/vim-colors-solarized'
+
 "インストールしていないプラグインがあったら警告"
 NeoBundleCheck
 
+call neobundle#end()
 filetype plugin indent on
 
 "----------------------------------------}}}
@@ -392,6 +423,7 @@ inoremap ( ()<LEFT>
 inoremap [ []<Left>
 inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
 " 強制保存終了を無効化
 nnoremap ZZ zz
 "<C-e>で拡張子で判断してスクリプト実行
@@ -625,5 +657,15 @@ au BufRead,BufNewFile *.tex set filetype=tex
 au BufWritePost,FileWritePost *.tex QuickRun tex
 
 "----------------------------------------}}}
+" colorscheme {{{
+"----------------------------------------
+set t_Co=256
+syntax on
+set background=dark
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid
+"colorscheme solarized
+"syntax enable
 
-call neobundle#end()
+"----------------------------------------}}}
+
