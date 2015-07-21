@@ -1,4 +1,4 @@
-" エンコード設定 {{{
+" 共有設定 {{{
 "エンコードをutf-8にセット"
 scriptencoding utf-8
 set encoding=utf-8
@@ -7,9 +7,7 @@ set fileencodings=utf-8
 "別になくてもvimの規定値が使われるよ"
 "set nocompatible
 
-"----------------------------------------}}}
-" Which OS use?{{{
-"----------------------------------------
+" Which OS use?
 let s:is_windows = has('win16') || has('win32') || has('win64')
 let s:is_cygwin = has('win32unix')
 let s:is_mac = !s:is_windows && !s:is_cygwin
@@ -24,9 +22,6 @@ else
 	language message C
 endif
 
-"----------------------------------------}}}
-" 共有設定 {{{
-"----------------------------------------
 " セッションファイルをホームディレクトリに保存
 "au VimLeave * mks! ~/session.vim
 "au VimEnter * :so ~/session.vim
@@ -44,7 +39,7 @@ set noundofile
 "set backupdir=~/.vimbackup
 
 "----------------------------------------}}}
-" augroup{{{
+" Myautocmd{{{
 "----------------------------------------
 " release autogroup in MyAutoCmd
 augroup MyAutoCmd
@@ -168,7 +163,7 @@ call neobundle#end()
 filetype plugin indent on
 
 "----------------------------------------}}}
-"   {{{
+" vim設定  {{{
 "----------------------------------------
 "backspaceの動作を普通のエディタみたいに
 set backspace=indent,eol,start
@@ -196,13 +191,15 @@ set formatoptions+=mM
 set virtualedit=block
 
 "コマンドライン補完するときに強化されたものを使う
-set wildmenu
+set wildmenu=longest:full,full
 
 "tabでタブ文字を入力
 "set noexpandtab
 "tabで空白文字を入力
+
 set expandtab
 "長い行を折り返し表示
+
 set wrap
 " 最下ウィンドウにいつステータス行が表示されるかを設定する
 "               0: 全く表示しない
@@ -210,8 +207,10 @@ set wrap
 "               2: 常に表示
 set laststatus=1
 " コマンドラインに使われる画面上の行数
+
 set cmdheight=2
 "コマンド (の一部) を画面の最下行に表示
+
 set showcmd
 
 set title
@@ -224,9 +223,9 @@ set foldmethod=syntax
 
 set hidden
 
-"----------------------------------------}}}
-" 検索 {{{
-"----------------------------------------
+"----------------------------------------   
+" 検索
+"----------------------------------------   
 
 "検索の時に大文字小文字を区別しない
 set ignorecase
@@ -240,11 +239,12 @@ set incsearch
 set hlsearch
 "w,bの移動で認識する文字
 "set iskeyword=a-z,A-Z,48-57,_,.,-,>
-"背景色
-set bg=dark
+"検索候補を画面中央へ
+nnoremap n nzz
+nnoremap N Nzz
 
-"----------------------------------------}}}
-" 表示設定 {{{
+"----------------------------------------
+" 表示設定
 "----------------------------------------   
 "スプラッシュ(起動時のメッセージ)を表示しな
 set shortmess+=I
@@ -288,6 +288,17 @@ set ambiwidth=double
 set autoindent
 set smartindent
 set cindent
+
+"----------------------------------------
+" colorscheme
+"----------------------------------------
+set t_Co=256
+syntax on
+set background=dark
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid
+"colorscheme solarized
+"syntax enable
 "----------------------------------------}}}
 "quickrun_config {{{
 "----------------------------------------
@@ -360,13 +371,6 @@ let g:quickrun_config = {
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 "---------------------------------------}}}
-"vimshell {{{
-"---------------------------------------
-let g:vimshell_prompt_expr = 'getcwd()." > "'
-let g:vimshell_prompt_pattern = '^\f\+ > '
-
-
-"---------------------------------------}}}
 "Unite {{{
 "---------------------------------------
 nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
@@ -375,6 +379,36 @@ nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
+" 入力モードで開始する
+" " let g:unite_enable_start_insert=1
+" " バッファ一覧
+"nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+" " ファイル一覧
+"nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" " レジスタ一覧
+"nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+" " 最近使用したファイル一覧
+"nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+" " 常用セット
+"nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+" " 全部乗せ
+"nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer
+" file_mru bookmark file<CR>
+"
+" " ウィンドウを分割して開く
+" au FileType unite nnoremap <silent> <buffer> <expr> <C-j>
+" unite#do_action('split')
+" au FileType unite inoremap <silent> <buffer> <expr> <C-j>
+" unite#do_action('split')
+" " ウィンドウを縦に分割して開く
+" au FileType unite nnoremap <silent> <buffer> <expr> <C-l>
+" unite#do_action('vsplit')
+" au FileType unite inoremap <silent> <buffer> <expr> <C-l>
+" unite#do_action('vsplit')
+" " ESCキーを2回押すと終了する
+" au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+" au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+" 
 "----------------------------------------}}}
 " neocomplcache {{{
 "----------------------------------------
@@ -383,22 +417,28 @@ inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 "----------------------------------------}}}
-" vimfiler {{{
+" neosnippet {{{
 "----------------------------------------
-let vimfiler_as_default_explorer=1
-let vimfiler_safe_mode_by_default=0
-let vimfiler_enable_clipboard=1
-let vimfiler_pedit_command="edit"
-let vimfiler_trashbox_directory = expand('~/.local/share/Trash/files')
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+			\ "\<Plug>(neosnippet_expand_or_jump)"
+			\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+			\ "\<Plug>(neosnippet_expand_or_jump)"
+			\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+	set conceallevel=2 concealcursor=i
+endif
 "----------------------------------------}}}
 " keymap {{{
 "----------------------------------------
-" Spaceキーで画面スクロール
-"nnoremap <SPACE>   <PageDown>
-" Shift+Spaceキーで画面逆スクロール
-"nnoremap <S-SPACE> <PageUp>
-
 :imap ;; <Esc>
 " Ctrl+Nで次のバッファを表示、Ctrl+Pで前のバッファを表示
 map <C-N> :bnext<CR>
@@ -430,9 +470,68 @@ nnoremap ZZ zz
 au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
 au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
 au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun<CR>
-
+"カーソル移動"
+nnoremap <C-H> <Home>
+nnoremap <C-L> <End>
+inoremap <C-H> <Home>
+inoremap <C-L> <End>
+"表示行単位で移動
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 
 "---------------------------------------}}}
+" vimfiler {{{
+"----------------------------------------
+let vimfiler_as_default_explorer=1
+let vimfiler_safe_mode_by_default=0
+let vimfiler_enable_clipboard=1
+let vimfiler_pedit_command="edit"
+let vimfiler_trashbox_directory = expand('~/.local/share/Trash/files')
+
+"----------------------------------------}}}
+" vimgoshrepl{{{
+"----------------------------------------
+"let g:neocomplcache#keyword_patterns['gosh-repl'] = "[[:alpha:]+*/@$_=.!?-][[:alnum:]+*/@$_:=.!?-]*"
+"let g:neocomplete#keyword_patterns['gosh-repl'] = "[[:alpha:]+*/@$_=.!?-][[:alnum:]+*/@$_:=.!?-]*"
+"vmap <CR> <Plug>(gosh_repl_send_block)
+":Unite gosh_infoを実行します
+"nmap gi <Plug>(gosh_info_start_search)
+":Unite カーソル位置のシンボルを初期値に:Unite gosh_infoを実行します
+"nmap gk <Plug>(gosh_info_start_search_with_cur_keyword)
+"imap <C-A> <Plug>(gosh_info_start_search_with_cur_keyword)
+
+"ginfoウィンドウのスクロールアップ・ダウン
+"nmap <C-K> <Plug>(gosh_info_row_up)
+"nmap <C-J> <Plug>(gosh_info_row_down)
+"imap <C-K> <Plug>(gosh_info_row_up)
+"imap <C-J> <Plug>(gosh_info_row_down)
+"ginfoウィンドウを閉じます
+"nmap <C-C> <Plug>(gosh_info_close)
+"imap <C-C> <Plug>(gosh_info_close)
+
+"カーソル位置のシンボルが定義されている場所にジャンプ
+"nmap <F12> <Plug>(gosh_goto_define)
+"nmap <F11> <Plug>(gosh_goto_define_split)
+
+"----------------------------------------}}}
+"vimshell {{{
+"---------------------------------------
+let g:vimshell_prompt_expr = 'getcwd()." > "'
+let g:vimshell_prompt_pattern = '^\f\+ > '
+
+"---------------------------------------}}}
+" vim-indent-guides {{{
+"----------------------------------------
+" vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
+"let g:indent_guides_enable_on_vim_startup = 1
+"let g:indent_guides_auto_colors=0
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
+"let g:indent_guides_guide_size=1
+"let g:indent_guides_start_level=2
+"----------------------------------------}}}
 " Vim-LaTeX {{{
 "---------------------------------------
 "filetype plugin on
@@ -483,104 +582,6 @@ au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun<CR>
 "			\"LaTeX Font Warning: Some font shapes were not available, defaults substituted."
 
 "----------------------------------------}}}
-" unite {{{
-"----------------------------------------
-" 入力モードで開始する
-" " let g:unite_enable_start_insert=1
-" " バッファ一覧
-"nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-" " ファイル一覧
-"nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" " レジスタ一覧
-"nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" " 最近使用したファイル一覧
-"nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" " 常用セット
-"nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-" " 全部乗せ
-"nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer
-" file_mru bookmark file<CR>
-"
-" " ウィンドウを分割して開く
-" au FileType unite nnoremap <silent> <buffer> <expr> <C-j>
-" unite#do_action('split')
-" au FileType unite inoremap <silent> <buffer> <expr> <C-j>
-" unite#do_action('split')
-" " ウィンドウを縦に分割して開く
-" au FileType unite nnoremap <silent> <buffer> <expr> <C-l>
-" unite#do_action('vsplit')
-" au FileType unite inoremap <silent> <buffer> <expr> <C-l>
-" unite#do_action('vsplit')
-" " ESCキーを2回押すと終了する
-" au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-" au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
-" 
-"----------------------------------------}}}
-" vimgoshrepl{{{
-"----------------------------------------
-"let g:neocomplcache#keyword_patterns['gosh-repl'] = "[[:alpha:]+*/@$_=.!?-][[:alnum:]+*/@$_:=.!?-]*"
-"let g:neocomplete#keyword_patterns['gosh-repl'] = "[[:alpha:]+*/@$_=.!?-][[:alnum:]+*/@$_:=.!?-]*"
-"vmap <CR> <Plug>(gosh_repl_send_block)
-":Unite gosh_infoを実行します
-"nmap gi <Plug>(gosh_info_start_search)
-":Unite カーソル位置のシンボルを初期値に:Unite gosh_infoを実行します
-"nmap gk <Plug>(gosh_info_start_search_with_cur_keyword)
-"imap <C-A> <Plug>(gosh_info_start_search_with_cur_keyword)
-
-"ginfoウィンドウのスクロールアップ・ダウン
-"nmap <C-K> <Plug>(gosh_info_row_up)
-"nmap <C-J> <Plug>(gosh_info_row_down)
-"imap <C-K> <Plug>(gosh_info_row_up)
-"imap <C-J> <Plug>(gosh_info_row_down)
-"ginfoウィンドウを閉じます
-"nmap <C-C> <Plug>(gosh_info_close)
-"imap <C-C> <Plug>(gosh_info_close)
-
-"カーソル位置のシンボルが定義されている場所にジャンプ
-"nmap <F12> <Plug>(gosh_goto_define)
-"nmap <F11> <Plug>(gosh_goto_define_split)
-
-"----------------------------------------}}}
-" vim-indent-guides {{{
-"----------------------------------------
-" vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
-"let g:indent_guides_enable_on_vim_startup = 1
-"let g:indent_guides_auto_colors=0
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
-"let g:indent_guides_guide_size=1
-"let g:indent_guides_start_level=2
-"----------------------------------------}}}
-" vim-template {{{
-"----------------------------------------
-" テンプレート中に含まれる特定文字列を置き換える
-autocmd MyAutoCmd User plugin-template-loaded call s:template_keywords()
-function! s:template_keywords()
-	silent! %s/<+DATE+>/\=strftime('%Y-%m-%d')/g
-	silent! %s/<+FILENAME+>/\=expand('%:r')/g
-endfunction
-" テンプレート中に含まれる'<+CURSOR+>'にカーソルを移動
-autocmd MyAutoCmd User plugin-template-loaded
-			\   if search('<+CURSOR+>')
-			\ |   silent! execute 'normal! "_da>'
-			\ | endif
-"----------------------------------------}}}
-" indentline {{{
-"----------------------------------------
-"let g:indentLine_color_term = 111
-"let g:indentLine_color_gui = '#708090'
-"let g:indentLine_char = '' "use ¦, ┆ or │
-"----------------------------------------}}}
-" template.* {{{
-"----------------------------------------
-"autocmd BufNewFile *.c 0r $HOME/.vim/template/template.c
-"autocmd BufNewFile *.cpp 0r $HOME/.vim/template/template.cpp
-"autocmd BufNewFile *.py 0r $HOME/.vim/template/template.py
-"autocmd BufNewFile *.rb 0r $HOME/.vim/template/template.rb
-"autocmd BufNewFile *.scm 0r $HOME/.vim/template/template.scm
-"autocmd BufNewFile *.sh 0r $HOME/.vim/template/template.sh
-"autocmd BufNewFile *.tex 0r $HOME/.vim/template/template.tex
-"----------------------------------------}}}
 " vim-latex {{{
 "----------------------------------------
 " 自動コンパイル
@@ -614,25 +615,35 @@ else
 	let g:latex_view_general_viewer = 'xdg-open'
 endif
 "----------------------------------------}}}
-" neosnippet {{{
+" vim-template {{{
 "----------------------------------------
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)"
-			\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)"
-			\: "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-	set conceallevel=2 concealcursor=i
-endif
+" テンプレート中に含まれる特定文字列を置き換える
+autocmd MyAutoCmd User plugin-template-loaded call s:template_keywords()
+function! s:template_keywords()
+	silent! %s/<+DATE+>/\=strftime('%Y-%m-%d')/g
+	silent! %s/<+FILENAME+>/\=expand('%:r')/g
+endfunction
+" テンプレート中に含まれる'<+CURSOR+>'にカーソルを移動
+autocmd MyAutoCmd User plugin-template-loaded
+			\   if search('<+CURSOR+>')
+			\ |   silent! execute 'normal! "_da>'
+			\ | endif
+"----------------------------------------}}}
+" template.* {{{
+"----------------------------------------
+"autocmd BufNewFile *.c 0r $HOME/.vim/template/template.c
+"autocmd BufNewFile *.cpp 0r $HOME/.vim/template/template.cpp
+"autocmd BufNewFile *.py 0r $HOME/.vim/template/template.py
+"autocmd BufNewFile *.rb 0r $HOME/.vim/template/template.rb
+"autocmd BufNewFile *.scm 0r $HOME/.vim/template/template.scm
+"autocmd BufNewFile *.sh 0r $HOME/.vim/template/template.sh
+"autocmd BufNewFile *.tex 0r $HOME/.vim/template/template.tex
+"----------------------------------------}}}
+" indentline {{{
+"----------------------------------------
+"let g:indentLine_color_term = 111
+"let g:indentLine_color_gui = '#708090'
+"let g:indentLine_char = '' "use ¦, ┆ or │
 "----------------------------------------}}}
 " autocmd {{{
 "----------------------------------------
@@ -657,15 +668,5 @@ au BufRead,BufNewFile *.tex set filetype=tex
 au BufWritePost,FileWritePost *.tex QuickRun tex
 
 "----------------------------------------}}}
-" colorscheme {{{
-"----------------------------------------
-set t_Co=256
-syntax on
-set background=dark
-let g:hybrid_use_Xresources = 1
-colorscheme hybrid
-"colorscheme solarized
-"syntax enable
 
-"----------------------------------------}}}
 
