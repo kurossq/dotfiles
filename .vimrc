@@ -471,10 +471,12 @@ au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
 au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
 au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun<CR>
 "カーソル移動"
-nnoremap <C-H> <Home>
-nnoremap <C-L> <End>
-inoremap <C-H> <Home>
-inoremap <C-L> <End>
+nnoremap <C-H> <Left>
+nnoremap <C-L> <Right>
+nnoremap <C-J> <Esc>o
+inoremap <C-H> <Left>
+inoremap <C-L> <Right>
+inoremap <C-J> <Esc>o
 "表示行単位で移動
 nnoremap j gj
 nnoremap k gk
