@@ -477,6 +477,8 @@ nnoremap <C-J> <Esc>o
 inoremap <C-H> <Left>
 inoremap <C-L> <Right>
 inoremap <C-J> <Esc>o
+inoremap <C-A> <Home>
+inoremap <C-E> <End>
 "表示行単位で移動
 nnoremap j gj
 nnoremap k gk
