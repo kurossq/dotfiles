@@ -473,7 +473,7 @@ au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun<CR>
 "カーソル移動"
 nnoremap <C-H> <Left>
 nnoremap <C-L> <Right>
-nnoremap <C-J> <Esc>o
+nnoremap <C-J> <Esc>o<Esc>
 inoremap <C-H> <Left>
 inoremap <C-L> <Right>
 inoremap <C-J> <Esc>o
