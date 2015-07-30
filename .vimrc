@@ -156,6 +156,21 @@ NeoBundle 'vim-scripts/twilight'
 NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'altercation/vim-colors-solarized'
 
+" Djangoを正しくVimで読み込めるようにする
+" 極端に遅くなるので非推奨
+""NeoBundleLazy "lambdalisue/vim-django-support", {
+""      \ "autoload": {
+""      \   "filetypes": ["python", "python3", "djangohtml"]
+""      \ }}
+" Vimで正しくvirtualenvを処理できるようにする
+NeoBundleLazy "jmcantrell/vim-virtualenv", {
+      \ "autoload": {
+      \   "filetypes": ["python", "python3", "djangohtml"]
+      \ }}
+
+"python"
+NeoBundle 'davidhalter/jedi-vim'
+
 "インストールしていないプラグインがあったら警告"
 NeoBundleCheck
 
@@ -193,24 +208,27 @@ set virtualedit=block
 "コマンドライン補完するときに強化されたものを使う
 set wildmode=longest:full,full
 
+"補完時に大文字と小文字を区別しない"
+set infercase
+
 "tabでタブ文字を入力
 "set noexpandtab
+
 "tabで空白文字を入力
-
 set expandtab
-"長い行を折り返し表示
 
+"長い行を折り返し表示
 set wrap
 " 最下ウィンドウにいつステータス行が表示されるかを設定する
 "               0: 全く表示しない
 "               1: ウィンドウの数が2以上のときのみ表示
 "               2: 常に表示
 set laststatus=1
+
 " コマンドラインに使われる画面上の行数
-
 set cmdheight=2
-"コマンド (の一部) を画面の最下行に表示
 
+"コマンド (の一部) を画面の最下行に表示
 set showcmd
 
 set title
@@ -222,6 +240,12 @@ set whichwrap=b,s,h,l,<,>,[,],~
 set foldmethod=syntax
 
 set hidden
+
+set switchbuf=useopen
+
+"ビジュアルベルを無効化"
+set t_vb=
+set novisualbell
 
 "----------------------------------------   
 " 検索
@@ -484,6 +508,11 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
+" ESCを二回押すことでハイライトを消す
+nmap <silent> <Esc><Esc> :nohlsearch<CR>
+" TABにて対応ペアにジャンプ
+nnoremap <Tab> %
+vnoremap <Tab> %
 
 "---------------------------------------}}}
 " vimfiler {{{
@@ -672,5 +701,26 @@ au BufRead,BufNewFile *.tex set filetype=tex
 au BufWritePost,FileWritePost *.tex QuickRun tex
 
 "----------------------------------------}}}
-
+" jedi {{{
+"----------------------------------------
+let g:jedi#auto_initialization = 0
+let g:jedi#popup_on_dot = 1
+autocmd FileType python let b:did_ftplugin = 1
+autocmd FileType python setlocal completeopt-=preview
+""autocmd FileType python setlocal omnifunc=jedi#completions
+" jediにvimの設定を任せると'completeopt+=preview'するので
+" 自動設定機能をOFFにし手動で設定を行う
+let g:jedi#auto_vim_configuration = 0
+" 補完の最初の項目が選択された状態だと使いにくいためオフにする
+let g:jedi#popup_select_first = 0
+" quickrunと被るため大文字に変更
+let g:jedi#rename_command = '<Leader>R'
+" gundoと被るため大文字に変更
+let g:jedi#goto_command = '<Leader>G'
+""let g:jedi#completions_enabled = 0
+if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+"----------------------------------------}}}
 
