@@ -1,14 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
-# preamble {{{
-# Information {{{
-#     Author:     Ibuki-E
-#     Last Update:
-#     Created:    <+DATE+>
-#     }}}
-# Argument {{{
-#
-#     }}}
+__author__ = "Ibuki-E"
+__status__ = "sleep"
+__version__ = "0.00"
+__date__ = <+DATE+>
 
-# }}}
 <+CURSOR+>
