@@ -191,7 +191,7 @@ set formatoptions+=mM
 set virtualedit=block
 
 "コマンドライン補完するときに強化されたものを使う
-set wildmenu=longest:full,full
+set wildmode=longest:full,full
 
 "tabでタブ文字を入力
 "set noexpandtab
