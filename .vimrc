@@ -375,7 +375,7 @@ let g:quickrun_config = {
       \   'outputter/error/success' : 'null',
       \   'outputter/error/error' : 'quickfix',
       \   'srcfile' : expand("%"),
-      \   'cmdopt': '-pdfdvi -pv',
+      \   'cmdopt': '-pdfdvi -pv -c',
       \   'hook/sweep/files' : [
       \                        '%S:p:r.aux',
       \                        '%S:p:r.bbl',
@@ -493,7 +493,7 @@ nnoremap ZZ zz
 "<C-e>で拡張子で判断してスクリプト実行
 au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
 au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
-au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun<CR>
+au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun tex<CR>
 "カーソル移動"
 nnoremap <C-H> <Left>
 nnoremap <C-L> <Right>
