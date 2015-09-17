@@ -384,11 +384,49 @@ let g:quickrun_config = {
       \                        '%S:p:r.fdb_latexmk',
       \                        '%S:p:r.fls',
       \                        '%S:p:r.log',
-      \                        '%S:p:r.out'
+      \                        '%S:p:r.out',
       \                        ],
       \   'exec': '%c %o %a %s',
       \}
 			\ }
+
+let g:quickrun_config.tmptex = {
+\   'exec': [
+\           'mv %s %a/tmptex.latex',
+\           'latexmk -pdfdvi -pv -output-directory=%a %a/tmptex.latex',
+\           ],
+\   'args' : expand("%:p:h:gs?\\\\?/?"),
+\   'outputter' : 'error',
+\   'outputter/error/error' : 'quickfix',
+\
+\   'hook/eval/enable' : 1,
+\   'hook/eval/cd' : "%s:r",
+\
+\   'hook/eval/template' : '\documentclass{jsarticle}'
+\                         .'\usepackage[dvipdfmx]{graphicx, hyperref}'
+\                         .'\usepackage{float}'
+\                         .'\usepackage{amsmath,amssymb,amsthm,ascmac,mathrsfs}'
+\                         .'\allowdisplaybreaks[1]'
+\                         .'\theoremstyle{definition}'
+\                         .'\newtheorem{theorem}{定理}'
+\                         .'\newtheorem*{theorem*}{定理}'
+\                         .'\newtheorem{definition}[theorem]{定義}'
+\                         .'\newtheorem*{definition*}{定義}'
+\                         .'\renewcommand\vector[1]{\mbox{\boldmath{\$#1\$}}}'
+\                         .'\begin{document}'
+\                         .'%s'
+\                         .'\end{document}',
+\
+\   'hook/sweep/files' : [
+\                        '%a/tmptex.latex',
+\                        '%a/tmptex.out',
+\                        '%a/tmptex.fdb_latexmk',
+\                        '%a/tmptex.log',
+\                        '%a/tmptex.aux',
+\                        '%a/tmptex.dvi'
+\                        ],
+\}
+
 
 " <C-c> で実行を強制終了させる
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
@@ -491,9 +529,11 @@ inoremap {<Enter> {}<Left><CR><ESC><S-o>
 " 強制保存終了を無効化
 nnoremap ZZ zz
 "<C-e>で拡張子で判断してスクリプト実行
+vnoremap <silent><buffer> <C-e> :QuickRun -mode v -type tmptex<CR>
 au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
 au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
 au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun tex<CR>
+au BufNewFile,BufRead *.tex nnoremap <C-e><C-e> :QuickRun tex -args -c<CR>
 "カーソル移動"
 nnoremap <C-H> <Left>
 nnoremap <C-L> <Right>
