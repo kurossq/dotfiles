@@ -207,7 +207,6 @@ set virtualedit=block
 
 "コマンドライン補完するときに強化されたものを使う
 set wildmode=longest:full,full
-set wildignorecase
 
 "補完時に大文字と小文字を区別しない"
 set infercase
