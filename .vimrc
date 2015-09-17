@@ -247,6 +247,9 @@ set switchbuf=useopen
 set t_vb=
 set novisualbell
 
+"カレントディレクトリを自動変更"
+set autochdir
+
 "----------------------------------------   
 " 検索
 "----------------------------------------   
@@ -738,7 +741,7 @@ autocmd FileType yaml       setlocal sw=2 sts=2 ts=2 et
 autocmd FileType xml        setlocal sw=2 sts=2 ts=2 et
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.tex set filetype=tex
-au BufWritePost,FileWritePost *.tex QuickRun tex
+""au BufWritePost,FileWritePost *.tex QuickRun tex
 
 "----------------------------------------}}}
 " jedi {{{
