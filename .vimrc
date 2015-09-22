@@ -536,6 +536,7 @@ au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
 au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
 au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun tex<CR>
 au BufNewFile,BufRead *.tex nnoremap <C-e><C-e> :QuickRun tex -args -c<CR>
+au BufNewFile,BufRead *.md nnoremap <C-e> :PrevimOpen<CR>
 "カーソル移動"
 nnoremap <C-H> <Left>
 nnoremap <C-L> <Right>
