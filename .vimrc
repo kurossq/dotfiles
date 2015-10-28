@@ -532,8 +532,8 @@ inoremap {<Enter> {}<Left><CR><ESC><S-o>
 nnoremap ZZ zz
 "<C-e>で拡張子で判断してスクリプト実行
 vnoremap <silent><buffer> <C-e> :QuickRun -mode v -type tmptex<CR>
-au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
-au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
+"au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
+"au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
 au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun tex<CR>
 au BufNewFile,BufRead *.tex nnoremap <C-e><C-e> :QuickRun tex -args -c<CR>
 au BufNewFile,BufRead *.md nnoremap <C-e> :PrevimOpen<CR>
