@@ -138,7 +138,7 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'thinca/vim-template'
 
 "インデントをわかりやすく表示
-"NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'Yggdroot/indentLine'
 
 "テキストを囲う
 NeoBundle 'tpope/vim-surround'
@@ -170,6 +170,10 @@ NeoBundleLazy "jmcantrell/vim-virtualenv", {
 
 "python"
 NeoBundle 'davidhalter/jedi-vim'
+
+" python の折りたたみ制御"
+NeoBundleLazy "vim-scripts/python_fold", {
+    \ "autoload": { "filetypes": [ "python", "python3", "djangohtml"] }}
 
 "インストールしていないプラグインがあったら警告"
 NeoBundleCheck
