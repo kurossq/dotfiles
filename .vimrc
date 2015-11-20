@@ -56,6 +56,7 @@ augroup END
 " vimのバージョンによって入っていないものがあることがある
 " sudo apt-get install vim vim-gnome vim-athena vim-gtk vim-nox vim-tiny
 
+let $PATH = "~/.pyenv/shims:".$PATH
 if has('vim_starting')
 	set runtimepath+=~/.vim/bundle/neobundle.vim/
 	call neobundle#begin(expand('~/.vim/bundle/'))
@@ -153,6 +154,7 @@ NeoBundle 'tyru/open-browser.vim'
 " colorscheme"
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'cocopon/lightline-hybrid.vim'
 NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundle 'vim-scripts/twilight'
 NeoBundle 'jonathanfilip/vim-lucius'
@@ -160,10 +162,10 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 " Djangoを正しくVimで読み込めるようにする
 " 極端に遅くなるので非推奨
-""NeoBundleLazy "lambdalisue/vim-django-support", {
-""      \ "autoload": {
-""      \   "filetypes": ["python", "python3", "djangohtml"]
-""      \ }}
+NeoBundleLazy "lambdalisue/vim-django-support", {
+      \ "autoload": {
+      \   "filetypes": ["python", "python3", "djangohtml"]
+      \ }}
 " Vimで正しくvirtualenvを処理できるようにする
 NeoBundleLazy "jmcantrell/vim-virtualenv", {
       \ "autoload": {
@@ -172,6 +174,15 @@ NeoBundleLazy "jmcantrell/vim-virtualenv", {
 
 "python"
 NeoBundle 'davidhalter/jedi-vim'
+
+" pyenv用"
+NeoBundleLazy "lambdalisue/vim-pyenv", {
+      \ "depends": ['davidhalter/jedi-vim'],
+      \ "autocmd": {
+      \   "filetypes": ["python", "python3", "djangohtml"]
+      \ }}
+""
+NeoBundle 'itchyny/lightline.vim'
 
 " python の折りたたみ制御"
 NeoBundleLazy "vim-scripts/python_fold", {
@@ -229,7 +240,7 @@ set wrap
 "               0: 全く表示しない
 "               1: ウィンドウの数が2以上のときのみ表示
 "               2: 常に表示
-set laststatus=1
+set laststatus=2
 
 " コマンドラインに使われる画面上の行数
 set cmdheight=2
@@ -487,58 +498,17 @@ if has('lua')
   if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
   endif
-  "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-  " Disable AutoComplPop.
-  let g:acp_enableAtStartup = 0
+  let g:neocomplete#keyword_patterns._ = '\h\w*'
   " Use neocomplete.
   let g:neocomplete#enable_at_startup = 1
   " Use smartcase.
   let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#enable_ignore_case = 1
   " Set minimum syntax keyword length.
   let g:neocomplete#sources#syntax#min_keyword_length = 3
-  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-  
-  " Define dictionary.
-  let g:neocomplete#sources#dictionary#dictionaries = {
-      \ 'default' : '',
-      \ 'vimshell' : $HOME.'/.vimshell_hist',
-      \ 'scheme' : $HOME.'/.gosh_completions'
-          \ }
-  
-  " Define keyword.
-  if !exists('g:neocomplete#keyword_patterns')
-      let g:neocomplete#keyword_patterns = {}
-  endif
-  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-  
-  " Plugin key-mappings.
-  inoremap <expr><C-g>     neocomplete#undo_completion()
-  inoremap <expr><C-l>     neocomplete#complete_common_string()
-  
-  " Recommended key-mappings.
-  " <CR>: close popup and save indent.
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? "\<C-y>" : "\<CR>"
-  endfunction
-  " <TAB>: completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-  " Close popup by <Space>.
-  "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-  
-  " AutoComplPop like behavior.
-  "let g:neocomplete#enable_auto_select = 1
-  
-  " Shell like behavior(not recommended).
-  "set completeopt+=longest
-  "let g:neocomplete#enable_auto_select = 1
-  "let g:neocomplete#disable_auto_complete = 1
-  "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+  " _(アンダースコア)区切りの補完を有効化
+  let g:neocomplete#enable_underbar_completion = 1
+  let g:neocomplete#enable_camel_case_completion  =  1
   
   " Enable omni completion.
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -546,18 +516,9 @@ if has('lua')
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   "autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  inoremap <expr><CR> neocomplete#smart_close_popup() . "\<CR>"
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
   
-  " Enable heavy omni completion.
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-  "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-  "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-  "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-  
-  " For perlomni.vim setting.
-  " https://github.com/c9s/perlomni.vim
-  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 else
   " neocomplcache
   let g:neocomplcache_enable_at_startup = 1
@@ -832,10 +793,9 @@ au BufRead,BufNewFile *.tex set filetype=tex
 " jedi {{{
 "----------------------------------------
 let g:jedi#auto_initialization = 0
-let g:jedi#popup_on_dot = 1
-autocmd FileType python let b:did_ftplugin = 1
-autocmd FileType python setlocal completeopt-=preview
+let g:jedi#popup_on_dot = 0
 autocmd FileType python setlocal omnifunc=jedi#completions
+autocmd FileType python3 setlocal omnifunc=jedi#completions
 " jediにvimの設定を任せると'completeopt+=preview'するので
 " 自動設定機能をOFFにし手動で設定を行う
 let g:jedi#auto_vim_configuration = 0
@@ -847,8 +807,71 @@ let g:jedi#rename_command = '<Leader>R'
 let g:jedi#goto_command = '<Leader>G'
 let g:jedi#completions_enabled = 0
 if !exists('g:neocomplete#force_omni_input_patterns')
-        let g:neocomplete#force_omni_input_patterns = {}
+  let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+"----------------------------------------}}}
+" lightline {{{
+"----------------------------------------
+let g:lightline = {
+        \ 'colorscheme': 'hybrid',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+        \ },
+        \ 'component_function': {
+        \   'modified': 'LightLineModified',
+        \   'readonly': 'LightLineReadonly',
+        \   'fugitive': 'LightLineFugitive',
+        \   'filename': 'LightLineFilename',
+        \   'fileformat': 'LightLineFileformat',
+        \   'filetype': 'LightLineFiletype',
+        \   'fileencoding': 'LightLineFileencoding',
+        \   'mode': 'LightLineMode'
+        \ }
+        \ }
+
+function! LightLineModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightLineReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+endfunction
+
+function! LightLineFilename()
+  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+function! LightLineFugitive()
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+      return fugitive#head()
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! LightLineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightLineFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! LightLineMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
 "----------------------------------------}}}
 
