@@ -794,6 +794,8 @@ au BufRead,BufNewFile *.tex set filetype=tex
 "----------------------------------------
 let g:jedi#auto_initialization = 0
 let g:jedi#popup_on_dot = 0
+autocmd FileType python setlocal completeopt-=preview
+autocmd FileType python3 setlocal completeopt-=preview
 autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType python3 setlocal omnifunc=jedi#completions
 " jediにvimの設定を任せると'completeopt+=preview'するので
