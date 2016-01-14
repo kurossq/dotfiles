@@ -583,6 +583,7 @@ vnoremap <silent><buffer> <C-e> :QuickRun -mode v -type tmptex<CR>
 au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun tex<CR>
 au BufNewFile,BufRead *.tex nnoremap <C-e><C-e> :QuickRun tex -args -c<CR>
 au BufNewFile,BufRead *.md nnoremap <C-e> :PrevimOpen<CR>
+au BufNewFile,BufRead *.html nnoremap <C-e> :!google-chrome %
 "カーソル移動"
 nnoremap <C-H> <Left>
 nnoremap <C-L> <Right>
@@ -876,4 +877,8 @@ function! LightLineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 "----------------------------------------}}}
+" OpenBrowser {{{
+"----------------------------------------
 
+"----------------------------------------}}}
+"
