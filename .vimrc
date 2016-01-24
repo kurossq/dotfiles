@@ -459,6 +459,7 @@ nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
+nnoremap <C-o> :Unite -vertical -no-quit -winwidth=32 outline<Esc>
 
 " 入力モードで開始する
 " " let g:unite_enable_start_insert=1
