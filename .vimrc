@@ -111,7 +111,8 @@ NeoBundle 'Align'
 "vim-latex
 "NeoBundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 "NeoBundle 'vim-latex/vim-latex'
-NeoBundle 'lervag/vim-latex'
+"NeoBundle 'lervag/vim-latex'
+NeoBundle 'lervag/vimtex'
 
 "自然言語文法チェック
 NeoBundle 'rhysd/vim-grammarous'
@@ -710,17 +711,18 @@ let g:vimshell_prompt_pattern = '^\f\+ > '
 " vim-latex {{{
 "----------------------------------------
 " 自動コンパイル
-let g:latex_latexmk_continuous = 1
-let g:latex_latexmk_background = 1
+let g:vimtex_latexmk_continuous = 1
+let g:vimtex_latexmk_background = 1
 " 折りたたみの無効化"
-let g:vimtex_fold_envs = 0
+let g:vimtex_fold_envs = 1
+let g:vimtex_fold_enabled = 1
 " 数式表示の無効化"
 let g:tex_conceal=''
 " コンパイル終了後のエラー通知オフ
-"let g:latex_latexmk_callback = 0
-let g:latex_latexmk_options = '-pdfdvi'
-"let g:latex_fold_enabled = 1
-"let g:latex_fold_automatic = 1
+"let g:vimtex_latexmk_callback = 0
+let g:vimtex_latexmk_options = '-pdfdvi'
+"let g:vimtex_fold_enabled = 1
+"let g:vimtex_fold_automatic = 1
 " コンパイル後にWarningを無視する
 let g:vimtex_quickfix_ignore_all_warnings = 1
 "let g:vimtex_quickfix_ignored_warnings = [
@@ -730,14 +732,15 @@ let g:vimtex_quickfix_ignore_all_warnings = 1
 "			\ ]
 
 if s:is_windows
-	let g:latex_view_method = 'sumatrapdf'
-	let g:latex_view_sumatrapdf_options = '-reuse-instance -inverse-search "\"' . $VIM . '\gvim.exe\" -n --remote-silent +\%l \"\%f\""'
-	let g:latex_view_general_viewer = 'texworks'
+	let g:vimtex_view_method = 'sumatrapdf'
+	let g:vimtex_view_sumatrapdf_options = '-reuse-instance -inverse-search "\"' . $VIM . '\gvim.exe\" -n --remote-silent +\%l \"\%f\""'
+	let g:vimtex_view_general_viewer = 'texworks'
 elseif s:is_mac
-	let g:latex_view_general_viewer = 'open'
+	let g:vimtex_view_general_viewer = 'open'
 else
-	let g:latex_view_method = 'evince'
-	let g:latex_view_general_viewer = 'xdg-open'
+	"let g:vimtex_view_method = 'evince'
+	let g:vimtex_view_method = 'general'
+	let g:vimtex_view_general_viewer = 'xdg-open'
 endif
 "----------------------------------------}}}
 " vim-template {{{
