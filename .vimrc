@@ -571,7 +571,7 @@ map <C-T> :VimFiler ~/<CR>
 " cmap <C-n> <Down>
 " cmap <C-p> <Up>
 "nmap <Leader>q :QuickRun<CR>
-nmap <C-e> :QuickRun<CR>
+nmap <F5> :QuickRun<CR>
 inoremap ( ()<LEFT>
 inoremap [ []<Left>
 inoremap " ""<LEFT>
@@ -579,14 +579,14 @@ inoremap ' ''<LEFT>
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 " 強制保存終了を無効化
 nnoremap ZZ zz
-"<C-e>で拡張子で判断してスクリプト実行
-vnoremap <silent><buffer> <C-e> :QuickRun -mode v -type tmptex<CR>
-"au BufNewFile,BufRead *.rb nnoremap <C-e> :!ruby % <CR>
-"au BufNewFile,BufRead *.py nnoremap <C-e> :!python % <CR>
-au BufNewFile,BufRead *.tex nnoremap <C-e> :QuickRun tex<CR>
-au BufNewFile,BufRead *.tex nnoremap <C-e><C-e> :QuickRun tex -args -c<CR>
-au BufNewFile,BufRead *.md nnoremap <C-e> :PrevimOpen<CR>
-au BufNewFile,BufRead *.html nnoremap <C-e> :!google-chrome %
+"<F5>で拡張子で判断してスクリプト実行
+vnoremap <silent><buffer> <F5> :QuickRun -mode v -type tmptex<CR>
+"au BufNewFile,BufRead *.rb nnoremap <F5> :!ruby % <CR>
+"au BufNewFile,BufRead *.py nnoremap <F5> :!python % <CR>
+au BufNewFile,BufRead *.tex nnoremap <F5> :QuickRun tex<CR>
+au BufNewFile,BufRead *.tex nnoremap <F5><F5> :QuickRun tex -args -c<CR>
+au BufNewFile,BufRead *.md nnoremap <F5> :PrevimOpen<CR>
+au BufNewFile,BufRead *.html nnoremap <F5> :!google-chrome %
 "カーソル移動"
 nnoremap <C-H> <Left>
 nnoremap <C-L> <Right>
