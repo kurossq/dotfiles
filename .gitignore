@@ -1,2 +1,5 @@
 .vim/bundle
 .vim/.vimpos
+.vim/dein/repos
+.vim/dein/.cache
+.vim/deinrepos

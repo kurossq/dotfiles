@@ -1,0 +1,91 @@
+
+# dein.vim 本体
+[[plugins]]
+repo = 'Shougo/dein.vim'
+rtp = ''
+
+# quickrun
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+depends = 'mattn/quickrunex-vim'
+
+# quickrun依存
+[[plugins]]
+repo = 'mattn/quickrunex-vim'
+
+# 統合UI
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+# アウトラインを作る
+[[plugins]]
+repo = 'Shougo/unite-outline'
+
+# filler
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+
+# 補完
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+
+# 各種スニペット
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+## 整形ツール
+#[[plugins]]
+#repo = 'vim-scripts/Align.vim'
+
+# 自然言語文法チェック
+[[plugins]]
+repo = 'rhysd/vim-grammarous'
+
+# コメントON/OFFを実行
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+# when create file, insert template
+[[plugins]]
+repo = 'thinca/vim-template'
+
+# clearly indent
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+
+# テキストを囲う
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+# colorscheme
+[[plugins]]
+repo = 'nanotech/jellybeans.vim'
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+hook_add = '''
+set t_Co=256
+set background=dark
+let g:hybrid_use_Xresources = 1
+au MyAutoCmd VimEnter * nested colorscheme hybrid
+syntax on
+'''
+[[plugins]]
+repo = 'cocopon/lightline-hybrid.vim'
+[[plugins]]
+repo = 'jpo/vim-railscasts-theme'
+[[plugins]]
+repo = 'vim-scripts/twilight'
+[[plugins]]
+repo = 'jonathanfilip/vim-lucius'
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+

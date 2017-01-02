@@ -22,177 +22,46 @@ else
 	language message C
 endif
 
-" セッションファイルをホームディレクトリに保存
-"au VimLeave * mks! ~/session.vim
-"au VimEnter * :so ~/session.vim
-
-" スワップファイルをホームディレクトリに保存
-"set swapfile
-"set directory=~/.vimswap
 "スワップファイルはいらない
 set noswapfile
 set nobackup
 set noundofile
 
-" バックアップファイルをホームディレクトリに保存
-"set backup
-"set backupdir=~/.vimbackup
-
 "----------------------------------------}}}
-" Myautocmd{{{
+" MyAutoCmd{{{
 "----------------------------------------
 " release autogroup in MyAutoCmd
 augroup MyAutoCmd
 	autocmd!
 augroup END
-"----------------------------------------}}}
-" neobundle {{{
-"----------------------------------------
-" To set up NeoBundle
-" $ mkdir ~/.vim/bundle
-" $ cd ~/.vim/bundle
-" $ git clone https://github.com/Shougo/neobundle.vim
-" you may be required to install git on your computer.
-" vimのバージョンによって入っていないものがあることがある
-" sudo apt-get install vim vim-gnome vim-athena vim-gtk vim-nox vim-tiny
 
-let $PATH = "~/.pyenv/shims:".$PATH
-if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
-	call neobundle#begin(expand('~/.vim/bundle/'))
+"----------------------------------------}}}
+" dein.vim {{{
+"----------------------------------------
+" dein is installed
+let s:dein_dir = expand('~/.vim/dein')
+let s:dein_repos_dir = s:dein_dir . 'repos/github.com/Shougo/dein.vim'
+
+" if not have dein, get dein 
+if !isdirectory(s:dein_repos_dir)
+  execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repos_dir
+endif
+execute 'set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
+execute 'set runtimepath^=' . fnamemodify(s:dein_repos_dir, ':p')
+
+call dein#begin(s:dein_dir, expand('<sfile>'))
+call dein#load_toml('~/.vim/dein/dein_plugins.toml',{'lazy': 0})
+call dein#load_toml('~/.vim/dein/dein_plugins_lazy.toml',{'lazy': 1})
+
+" end dein setting"
+call dein#end()
+call dein#save_state()
+
+" installation check"
+if dein#check_install()
+  call dein#install()
 endif
 
-"neobundle自身をneobundleで管理"
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-"コードをとりあえず実行できる 偉い"
-NeoBundle 'thinca/vim-quickrun', {
-            \ 'depends' : 'mattn/quickrunex-vim',
-            \ }
-
-"NeoBundle 'Shougo/neobundle.vim'
-
-"非同期処理"
-NeoBundle 'Shougo/vimproc', {
-			\ 'build' : {
-			\ 'windows' : 'make -f make_mingw32.mak',
-			\ 'cygwin' : 'make -f make_cygwin.mak',
-			\ 'mac' : 'make -f make_mac.mak',
-			\ 'unix' : 'make -f make_unix.mak',
-			\ },
-			\ }
-
-"vimでshellが使えるよ"
-NeoBundle 'Shougo/vimshell'
-
-"統合UI データ操作が簡単にできるらしい"
-NeoBundle 'Shougo/unite.vim'
-
-"ソースファイルからアウトラインを作成"
-NeoBundle 'Shougo/unite-outline'
-
-"vimで起動できるファイラー"
-NeoBundle 'Shougo/vimfiler'
-
-"vimで補完してくれるやつ"
-"NeoBundle 'Shougo/neocomplcache'
-"NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
-
-"スニペット補完"
-NeoBundle 'Shougo/neosnippet.vim'
-
-"各種スニペット"
-NeoBundle 'Shougo/neosnippet-snippets'
-
-"整形ツール"
-NeoBundle 'Align'
-
-"vim-latex
-"NeoBundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
-"NeoBundle 'vim-latex/vim-latex'
-"NeoBundle 'lervag/vim-latex'
-NeoBundle 'lervag/vimtex'
-
-"自然言語文法チェック
-NeoBundle 'rhysd/vim-grammarous'
-
-"gauche用
-"vimでgaucheを使うためとコマンドラインみたいに扱うもの
-NeoBundle 'aharisu/vim_goshrepl'
-NeoBundle 'aharisu/vim-gdev'
-
-"ruby用
-" Rails向けのコマンドを提供する
-NeoBundle 'tpope/vim-rails'
-
-" Ruby向けにendを自動挿入してくれる
-"NeoBundle 'tpope/vim-endwise'
-
-" コメントON/OFFを手軽に実行
-NeoBundle 'tomtom/tcomment_vim'
-
-" インデントに色を付けて見やすくする
-"NeoBundle 'nathanaelkane/vim-indent-guides'
-
-" ファイルをtree表示してくれる
-"NeoBundle 'scrooloose/nerdtree'
-
-" ファイル作成時にテンプレート挿入
-NeoBundle 'thinca/vim-template'
-
-"インデントをわかりやすく表示
-NeoBundle 'Yggdroot/indentLine'
-
-"テキストを囲う
-NeoBundle 'tpope/vim-surround'
-
-" markdownを使うため
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'kannokanno/previm'
-NeoBundle 'tyru/open-browser.vim'
-
-" colorscheme"
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'cocopon/lightline-hybrid.vim'
-NeoBundle 'jpo/vim-railscasts-theme'
-NeoBundle 'vim-scripts/twilight'
-NeoBundle 'jonathanfilip/vim-lucius'
-NeoBundle 'altercation/vim-colors-solarized'
-
-" Djangoを正しくVimで読み込めるようにする
-" 極端に遅くなるので非推奨
-NeoBundleLazy "lambdalisue/vim-django-support", {
-      \ "autoload": {
-      \   "filetypes": ["python", "python3", "djangohtml"]
-      \ }}
-" Vimで正しくvirtualenvを処理できるようにする
-NeoBundleLazy "jmcantrell/vim-virtualenv", {
-      \ "autoload": {
-      \   "filetypes": ["python", "python3", "djangohtml"]
-      \ }}
-
-"python"
-NeoBundle 'davidhalter/jedi-vim'
-
-" pyenv用"
-NeoBundleLazy "lambdalisue/vim-pyenv", {
-      \ "depends": ['davidhalter/jedi-vim'],
-      \ "autocmd": {
-      \   "filetypes": ["python", "python3", "djangohtml"]
-      \ }}
-""
-NeoBundle 'itchyny/lightline.vim'
-
-" python の折りたたみ制御"
-NeoBundleLazy "vim-scripts/python_fold", {
-    \ "autoload": { "filetypes": [ "python", "python3", "djangohtml"] }}
-
-"インストールしていないプラグインがあったら警告"
-NeoBundleCheck
-
-call neobundle#end()
 filetype plugin indent on
 
 "----------------------------------------}}}
@@ -334,16 +203,16 @@ set autoindent
 set smartindent
 set cindent
 
+"----------------------------------------}}}
+" colorscheme{{{
 "----------------------------------------
-" colorscheme
-"----------------------------------------
-set t_Co=256
-syntax on
-set background=dark
-let g:hybrid_use_Xresources = 1
-colorscheme hybrid
-"colorscheme solarized
-"syntax enable
+"set t_Co=256
+"set background=dark
+"let g:hybrid_use_Xresources = 1
+"colorscheme hybrid
+"syntax on
+""colorscheme solarized
+""syntax enable
 "----------------------------------------}}}
 "quickrun_config {{{
 "----------------------------------------

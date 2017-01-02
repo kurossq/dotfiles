@@ -1,0 +1,75 @@
+# 非同期処理
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+on_source = ['unite.vim', 'vimshell.vim']
+
+# shell 
+[[plugins]]
+repo = 'Shougo/vimshell.vim'
+# on_if = "!has('nvim')"
+# hook_add = 'nmap [Space]s  <Plug>(vimshell_switch)'
+# hook_source = 'source ~/.vim/rc/plugins/vimshell.rc.vim'
+
+# snippet補完
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+depends = ['neosnippet-snippets', 'context_filetype.vim']
+on_event = 'InsertCharPre'
+on_ft = 'snippet'
+
+# latex
+[[plugins]]
+repo = 'lervag/vimtex'
+on_ft = 'tex'
+
+# gauche 
+[[plugins]]
+repo = 'aharisu/vim_goshrepl'
+on_ft = 'scheme'
+[[plugins]]
+repo = 'aharisu/vim-gdev'
+on_ft = 'scheme'
+
+# ruby rails
+[[plugins]]
+repo = 'tpope/vim-rails'
+on_ft = 'ruby'
+
+# markdown
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = 'markdown'
+[[plugins]]
+repo = 'kannokanno/previm'
+on_ft = 'markdown'
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft = 'markdown'
+
+# Django
+[[plugins]]
+repo = 'lambdalisue/vim-django-support'
+on_ft = ['python','python3','djangohtml']
+
+# virtualenv
+[[plugins]]
+repo = 'jmcantrell/vim-virtualenv'
+on_ft = ['python','python3','djangohtml']
+
+# python jedi
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = ['python','python3','djangohtml']
+
+# pyenv
+[[plugins]]
+repo = 'lambdalisue/vim-pyenv'
+depends = 'davidhalter/jedi-vim'
+on_ft = ['python','python3','djangohtml']
+
+# python 折りたたみ制御
+[[plugins]]
+repo = 'vim-scripts/python_fold'
+on_ft = ['python','python3','djangohtml']
+
