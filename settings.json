@@ -1,0 +1,71 @@
+// 既定の設定を上書きするには、このファイル内に設定を挿入します
+{
+	// エラーレポート非送信
+	"telemetry.enableCrashReporter": false,
+	"telemetry.enableTelemetry": false,
+	// 拡張機能を自動更新
+	"extensions.autoUpdate": true,
+	// VSCodeを自動更新
+	"update.channel": "default",
+	// ファイルを開く際に，文字コードを推定
+	"files.autoGuessEncoding": true,
+	// git
+	"git.autofetch": false,
+	"git.autorefresh": false,
+	"git.enabled": false,
+	// カラーテーマ指定
+	"workbench.colorTheme": "Atom One Dark",
+	// フォント指定
+	"editor.fontFamily": "SourceHanCodeJP-Light",
+	// フォントサイズ
+	"editor.fontSize": 12,
+	// 合字を使用
+	"editor.fontLigatures": true,
+	// 言語によらずタブサイズとタブの半角スペースの置換を無効化
+	"editor.detectIndentation": false,
+	// 空白文字の表示制御
+	"editor.renderWhitespace": "boundary",
+	// 強調表示を全開に
+	"editor.renderLineHighlight": "all",
+	// ミニマップ
+	"editor.minimap.enabled": false,
+	// 垂直ルーラーを表示
+	"editor.rulers": [
+		80,
+		120
+	],
+	// 空コピーで現在の行をコピーするのを無効化
+	"editor.emptySelectionClipboard": false,
+	// コピペした内容を自動インデント
+	"editor.formatOnPaste": true,
+	// Tabを押すとスペースでなくタブを挿入
+	"editor.insertSpaces": false,
+	// 入力中に補完を有効にする
+	"editor.quickSuggestions": {
+		"other": true,
+		"comments": true,
+		"strings": true
+	},
+	// 再起動時に開いていたフォルダーと関連するウィンドウを再表示する
+	"window.restoreWindows": "folders",
+	// ファイルエクスプローラーで表示しない
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/bin": true,
+		"**/*.exe": true,
+		"**/*.o": true,
+		"**/*.obj": true,
+		"**/*.ilk": true,
+		"**/*.pdb": true,
+		"**/*.dll": true,
+		"**.vs": true
+	},
+	// pylint の設定
+	"python.linting.pylintArgs": [
+		"--disable=W0312"
+	],
+}
