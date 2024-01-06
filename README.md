@@ -1,4 +1,4 @@
-# Ibuki's dotfiles
+# dotfiles
 This is Ubuntu config files
 ## git clone
 ```
